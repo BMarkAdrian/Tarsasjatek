@@ -1,0 +1,62 @@
+body{
+    background-image: url(img/background.png);
+    background-size: cover;
+    
+}
+ 
+#eredmeny{
+    border: 1px solid red;
+    width: 100%;
+    height: 40vw;
+    display: flex;
+}
+
+#baloldal{
+    width: 30%;
+    height: 40vw;
+}
+
+#kartyabox{
+    border: 1px solid blue;
+    width: 100%;
+    height: 20vw;
+}
+
+#pontbox{
+    border: 1px solid yellow;
+    width: 100%;
+    height: 20vw;
+}
+
+#tabla{
+    border: 1px solid green;
+    width: 50%;
+    height: 40vw;
+    display: flex;
+    flex-direction: column;
+}
+
+#korokbox{
+    border: 1px solid black;
+    width: 20%;
+    height: 40vw;
+}
+
+.sordiv{
+    display: flex;
+    flex-direction: row;
+    height: 8vw;
+    /* padding: 5px; */
+}
+
+
+.oszlopdiv{
+    border: 1px solid black;
+    margin: 5px 2.5px;
+    width: 16.6%;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
