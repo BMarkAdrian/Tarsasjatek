@@ -1,4 +1,4 @@
-var objektum = {
+/*var objektum = {
     szam1: 34,
     szam2: 23,
     id: 0,
@@ -13,7 +13,7 @@ function Torol()
 }
 
 console.log(objektum.szam1);
-console.log(objektum.Szomszedok[0]);
+console.log(objektum.Szomszedok[0]);*/
 
 var eredmeny = document.getElementById("eredmeny");
 var tabla = document.createElement("div");
@@ -63,19 +63,76 @@ function Tablageneralas()
     }
 }
 
+function Tombfeltoltes(tomb, db, n)
+{
+    while (tomb.length < db)
+    {
+        var a = Math.floor(Math.random() * n) + 1;
+        if (tomb.indexOf(a) === -1) {
+            tomb.push(a);
+        }
+    }
+}
+
+function ToronyFeltolt(tomb,tomb2, db, n)
+{
+    elltomb = [];
+    while (tomb.length < db)
+    {
+        var a = Math.floor(Math.random() * n) + 1;
+        var b = Math.floor(Math.random() * n) + 1;
+        if (elltomb.indexOf(String(a)+String(b)) === -1) {
+            elltomb.push(String(a)+String(b));
+            tomb.push(a);
+            tomb2.push(b);
+        }
+        
+    }
+    console.log(elltomb);
+}
+
 function KartyakatTablabaGeneral(db)
 {
     //Egy kártyát kiválaszt és elhelyez az első mezőben
     //A kártya elhelyezése egy véletlen helyre
     //db képet helyezzen el véletlen helyre
     //nem ismétlődhet a kép ls a hely sem
+    var tomb = [];
+    Tombfeltoltes(tomb, db, 23);
+    var tomb2 = [];
+    Tombfeltoltes(tomb2, 30, 30);
     for (var i = 0; i < db; i++)
-    {
-        var a = Math.floor(Math.random()*23)+1;
+    {  
         var img = document.createElement("img");
-        img.src = "img/"+a+".png";
-        var velhelyszam = Math.floor(Math.random()*29)+1;
-        var hely = document.getElementById(velhelyszam);
+        img.src = "img/"+(tomb[i])+".png";
+        var hely = document.getElementById(tomb2[i]-1);
+        hely.appendChild(img)
+    }
+    var ttomb =[];
+    var ttomb2 =[];
+    ToronyFeltolt(ttomb, ttomb2, 7, 4);
+    console.log(ttomb);
+    console.log(ttomb2);
+    for (var i = 0; i < ttomb.length; i++)
+    {  
+        var img = document.createElement("img");
+        if (ttomb[i] == 1)
+        {
+            img.src = "img/kekvar"+(ttomb2[i])+".png";
+        }
+        else if (ttomb[i] == 2)
+        {
+            img.src = "img/pirosvar"+(ttomb2[i])+".png";
+        }
+        else if (ttomb[i] == 3)
+        {
+            img.src = "img/zoldvar"+(ttomb2[i])+".png";
+        }
+        else if (ttomb[i] == 4)
+        {
+            img.src = "img/sargavar"+(ttomb2[i])+".png";
+        }
+        var hely = document.getElementById(tomb2[i+23]-1);
         hely.appendChild(img)
     }
 }
