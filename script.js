@@ -1,20 +1,3 @@
-/*var objektum = {
-    szam1: 34,
-    szam2: 23,
-    id: 0,
-    ertek: "Zöldvár4",
-    Torol: Torol(),
-    Szomszedok: [234,535,5235,45]
-}
-
-function Torol()
-{
-    console.log("töröl");
-}
-
-console.log(objektum.szam1);
-console.log(objektum.Szomszedok[0]);*/
-
 var eredmeny = document.getElementById("eredmeny");
 var tabla = document.createElement("div");
 var kartyaBox = document.createElement("div");
@@ -29,11 +12,6 @@ function EredmenyBetoltes(){
     eredmeny.appendChild(BalOldal);
     eredmeny.appendChild(tabla);
     eredmeny.appendChild(korokBox);
-
-    
-    kartyaBox.innerHTML = "kartya box";
-    pontBox.innerHTML = "pont box";
-    korokBox.innerHTML = "korok box";
 }
 
 function Elrendezes(){
@@ -42,7 +20,11 @@ function Elrendezes(){
     tabla.id= "tabla";
     pontBox.id= "pontbox";
     korokBox.id= "korokbox";
+}
 
+function velszam(also, felso)
+{
+    return Math.floor(Math.random()*(felso-also+1) + also);
 }
 
 function Tablageneralas()
@@ -111,8 +93,6 @@ function KartyakatTablabaGeneral(db)
     var ttomb =[];
     var ttomb2 =[];
     ToronyFeltolt(ttomb, ttomb2, 7, 4);
-    console.log(ttomb);
-    console.log(ttomb2);
     for (var i = 0; i < ttomb.length; i++)
     {  
         var img = document.createElement("img");
@@ -137,11 +117,31 @@ function KartyakatTablabaGeneral(db)
     }
 }
 
+function CoinGeneralas(){
+    for (let index = 1; index <= 4; index++) {
+        let div = document.createElement("div");
+        for (let i = 1; i <= 3; i++) {
+           
+            var img = document.createElement("img");
+            img.src = "img/forint"+(index)+".png";
+            img.style.height = 4+"vw";
+            img.style.width = 4+"vw";
+            pontBox.appendChild(div);
+            div.appendChild(img);
+            
+            
+        }
+        
+    }
+    
+}
+
 function Main()
 {
     EredmenyBetoltes();
     Elrendezes();
     Tablageneralas();
     KartyakatTablabaGeneral(23);
+    CoinGeneralas();
 }    
 Main();

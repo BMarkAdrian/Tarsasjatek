@@ -47,3 +47,29 @@ for(var i =0;i< 5;i++){
     table.appendChild(tr);
 }
 div.appendChild(table);
+
+
+let Ujtop = velszam(666, pontBox.offsetHeight+55);
+            let Ujleft = velszam(26, pontBox.offsetWidth-50);
+            console.log(pontBox.offsetHeight);
+            console.log(pontBox.offsetWidth);
+            div.style.top = Ujtop/20 + "vw";
+            div.style.left = Ujleft/20 + "vw";
+
+
+/*var objektum = {
+    szam1: 34,
+    szam2: 23,
+    id: 0,
+    ertek: "Zöldvár4",
+    Torol: Torol(),
+    Szomszedok: [234,535,5235,45]
+}
+
+function Torol()
+{
+    console.log("töröl");
+}
+
+console.log(objektum.szam1);
+console.log(objektum.Szomszedok[0]);*/
