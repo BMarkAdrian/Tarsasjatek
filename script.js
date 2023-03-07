@@ -51,6 +51,7 @@ var BalOldal = document.createElement("div");
 var pontBox = document.createElement("div");
 var korokBox = document.createElement("div");
 
+var cellak = [];
 
 function EredmenyBetoltes(){
     BalOldal.appendChild(kartyaBox);
@@ -91,13 +92,70 @@ function Tablageneralas()
     }
 }
 
+function CellakFeltoltese()
+{
+    for (var i = 0; i < 23; i++)
+    {
+        cellak[i] = {};
+        cellak[i].type = "kártya";
+        cellak[i].info = kartyaAdatok[i];
+    }
+    for (var i = 23; i < 30; i++)
+    {
+        cellak[i] = {};
+        cellak[i].type = "vár";
+        cellak[i].info = varAdatok[i-23];
+    }
+
+    console.log(cellak);
+}
+
+function CellakMegjelenitese()
+{
+    // cellak[0] -> kep
+    for (var i = 0; i < cellak.length; i++)
+    {
+        var index = cellak[i].info.id;
+        var img = document.createElement("img");
+        if (cellak[i].type == "kártya")
+        {
+            img.src = "img/" + index + ".png";
+        }
+        else
+        {
+            img.src = "img/var" + index + ".png";
+        }
+        var div = document.getElementById(i);
+        div.appendChild(img);
+    }    
+}
+
+function cellakOsszekeverese(cellak)
+{
+    
+}
 
 function Main()
 {
-
+    console.log(kartyaAdatok[0].id);
     EredmenyBetoltes();
     Elrendezes();
     Tablageneralas();
-
+    CellakFeltoltese();
+    CellakMegjelenitese();
 }    
 Main();
+
+/*
+cellak[i] -> cella
+cella = {
+    type: "vár" / "kártya",
+    info: {id:1, color:1, value:1} / {id:1, value:1, sign=''}
+}
+
+cella.type -> vár
+cella.info -> 1
+
+cellak[i].type -> vár
+cellak[i].info -> 1
+*/
