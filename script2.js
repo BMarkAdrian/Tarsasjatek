@@ -51,10 +51,6 @@ var korokBox = document.createElement("div");
 
 var cellak = [];
 
-var kepKivalasztva = false;
-var kepElhelyezve = true;
-var kepIndex;
-
 function EredmenyBetoltes() {
     BalOldal.appendChild(kartyaBox);
     BalOldal.appendChild(pontBox);
@@ -87,28 +83,6 @@ function Tablageneralas() {
             oszlopDiv.classList += "oszlopdiv"
             oszlopDiv.id = k;
             k++;
-
-            //oszlopDiv.setAttribute("onclick", "Rakattint(this)")
-            oszlopDiv.addEventListener("click", function(){
-                if(kepKivalasztva && !kepElhelyezve){
-                    kepElhelyezve = true;
-                    kepKivalasztva = false;
-                    var kep = document.createElement("img");
-                    kep.src = "img/"+kepIndex+".png";
-                    this.appendChild(kep);
-                }
-            })
-
-            oszlopDiv.addEventListener("click", function(){
-                if(kepKivalasztva && !kepElhelyezve){
-                    kepElhelyezve = true;
-                    kepKivalasztva = false;
-                    var kep = document.createElement("img");
-                    kep.src = "img/var"+kepIndex+".png";
-                    this.appendChild(kep);
-                }
-            })
-
             sorDiv.appendChild(oszlopDiv);
         }
         tabla.appendChild(sorDiv);
@@ -124,56 +98,93 @@ function Tablageneralas() {
  }
 
 
-function PotHelyreGeneralas()
-{
-   for (let i = 0; i < 23; i++) {
-    var kep = document.createElement("img");
-    kep.src = "img/"+(i+1)+".png";
-    kep.style.width = "150px";
-    kep.value = i+1; //kép indexét tárolom le
-    kep.addEventListener("click", function(){
-        if(!kepKivalasztva && kepElhelyezve){
-            kepIndex = this.value;
-            kepKivalasztva = true; 
-            this.style.visibility = "hidden";
-            kepElhelyezve = false;
-        }
-    })
-    //kep.setAttribute("onclick" , "Kepkivalasztas(this)")
-    var pothely = document.getElementById("potHely");
-    pothely.appendChild(kep);
-    
-   }
+function CellakKeverese() {
+    for (let index = 0; index < 100; index++) {
+        var vel1 = Math.floor(Math.random() * 30);
+        var vel2 = Math.floor(Math.random() * 30);
+        var sv = cellak[vel1];
+        cellak[vel1] = cellak[vel2];
+        cellak[vel2] = sv;
 
-   for (let i = 0; i < 7; i++) {
-    var kep = document.createElement("img");
-    kep.src = "img/var"+(i+1)+".png";
-    kep.style.width = "150px";
-    kep.value = i+1; //kép indexét tárolom le
-    kep.addEventListener("click", function(){
-        if(!kepKivalasztva && kepElhelyezve){
-            kepIndex = this.value;
-            kepKivalasztva = true; 
-            this.style.visibility = "hidden";
-            kepElhelyezve = false;
-        }
-    })
-    //kep.setAttribute("onclick" , "Kepkivalasztas(this)")
-    var pothely = document.getElementById("potHely");
-    pothely.appendChild(kep);
-    
-   }
-
-
+    }
 }
 
-function Kepkivalasztas()
+function Tombfel(tomb) {
+    for (let index = 0; index < 7; index++) {
+        var random = velszam(0, 15);
+        if (!Vanebenne(tomb, random)) {
+            tomb.push(random);
+        }
+        else{
+             index--;
+         }
+    }
+}
+
+function cellakFeltoltese() 
 {
-    if(!kepKivalasztva && kepElhelyezve){
-        kepIndex = this.value;
-        kepKivalasztva = true; 
-            this.style.visibility = "hidden";
-            kepBerakva = false;
+    for (let i = 0; i < 23; i++) {
+        cellak[i] = {};
+        cellak[i].type = "kártya";
+        cellak[i].info = kartyaAdatok[i];
+    }
+    var randomtomb = [];
+    Tombfel(randomtomb);
+    console.log(randomtomb);
+    for (let j = 23; j < 30; j++) {
+        cellak[j] = {};
+        cellak[j].type = "vár";
+        cellak[j].info = varAdatok[randomtomb[j-23]];
+        // if(!Vanebenne(varAdatok[j-23+random])){
+        //      cellak[j].info = varAdatok[j-23+random];
+        // }
+    }
+}
+
+function SorOsszeg(){
+    for (var i = 0; i < 5; i++) 
+    {
+        let sorosszeg = 0;
+        for (let j = 0; j < 6; j++) 
+        {
+            sorosszeg += cellak[i*6+j].info.value;
+            //36
+        }
+        console.log(sorosszeg);
+    }
+    console.log("\n");
+}
+
+function OszlopOsszeg(){
+    for (var i = 0; i < 5; i++) 
+    {
+        let oszloposszeg = 0;
+        for (let j = 0; j < 6; j++) 
+        {
+            console.log(cellak[i+6*j].info.value);
+            oszloposszeg += cellak[i+6*j].info.value;
+            //37
+        }
+        console.log(oszloposszeg);
+    }
+}
+
+/*function cellakOszzekerese(cellak) {
+    return cellak.sort(() => Math.random() - 0.5);
+  }*/
+
+function cellakMegjelenitese() {
+    for (let i = 0; i < cellak.length; i++) {
+        var index = cellak[i].info.id
+        var img = document.createElement("img");
+        if (cellak[i].type == "kártya") {
+            img.src = "img/" + (index) + ".png"
+        }
+        else {
+            img.src = "img/var" + (index) + ".png"
+        }
+        var div = document.getElementById(i);
+        div.appendChild(img);
     }
 }
 
@@ -181,8 +192,11 @@ function Main() {
     EredmenyBetoltes();
     Elrendezes();
     Tablageneralas();
-    PotHelyreGeneralas();
-    
+    cellakFeltoltese();
+    CellakKeverese();
+    cellakMegjelenitese();
+    SorOsszeg();
+    OszlopOsszeg();
 }
 Main();
  /*
