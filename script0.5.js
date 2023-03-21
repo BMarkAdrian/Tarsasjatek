@@ -48,22 +48,13 @@ var kartyaBox = document.createElement("div");
 var BalOldal = document.createElement("div");
 var pontBox = document.createElement("div");
 var korokBox = document.createElement("div");
-var lerakottkep = 0;
+
 var cellak = [];
 
 var kepKivalasztva = false;
 var kepElhelyezve = true;
 var kepIndex;
 var kepe = false;
-var pothely = document.getElementById("potHely");
-var varhely = document.createElement("div");
-var kephely = document.createElement("div");
-kephely.classList.add("kepHely");
-varhely.classList.add("varHely");
-pothely.appendChild(varhely);
-pothely.appendChild(kephely);
-
-
 
 
 function EredmenyBetoltes() {
@@ -92,47 +83,33 @@ function Tablageneralas() {
     var k = 0;
     for (var i = 0; i < 5; i++) {
         var sorDiv = document.createElement("div");
-        sorDiv.classList += "sordiv";
+        sorDiv.classList += "sordiv"
         for (var j = 0; j < 6; j++) {
             var oszlopDiv = document.createElement("div");
-            oszlopDiv.addEventListener("mouseover" , function(){
-                this.style.border = "1px solid white";
-                this.style.width = "16.5%"
-            });
-
-
-            oszlopDiv.addEventListener("mouseleave" , function(){
-                this.style.border = "1px solid black";
-                this.style.width = "16.6%"
-
-            });
-            oszlopDiv.classList += "oszlopdiv";
+            oszlopDiv.classList += "oszlopdiv"
             oszlopDiv.id = k;
             k++;
 
             //oszlopDiv.setAttribute("onclick", "Rakattint(this)")
-            
-            // if(!kepe){
+            console.log(kepe);
+            if(kepe){
 
                 
                 oszlopDiv.addEventListener("click", function(){
-                    if(kepKivalasztva && !kepElhelyezve && kepe == true && this.innerHTML == ''){
+                    if(kepKivalasztva && !kepElhelyezve){
                         kepElhelyezve = true;
                         kepKivalasztva = false;
                         console.log(kepIndex);
                         var kep = document.createElement("img");
                         kep.src = "img/"+kepIndex+".png";
-                        lerakottkep += 1;
-                        kephely.innerHTML = '';
-                        
                         this.appendChild(kep);
                     }
                 })
-            // }
-            // else{
+            }
+            else{
                
                 oszlopDiv.addEventListener("click", function(){
-                    if(kepKivalasztva && !kepElhelyezve && kepe == false  && this.innerHTML == ''){
+                    if(kepKivalasztva && !kepElhelyezve){
                         kepElhelyezve = true;
                         kepKivalasztva = false;
                         console.log(kepIndex);
@@ -141,24 +118,14 @@ function Tablageneralas() {
                         this.appendChild(kep);
                     }
                 })
-
-               
-            // }
+            }
             sorDiv.appendChild(oszlopDiv);
         }
         tabla.appendChild(sorDiv);
-
-        
-
     }
 }
 
-// function Korvonal()
-// {
-//     oszlopDiv.style.border = "3px solid white";
-// } 
-
-  function Vanebenne(tomb,ertek){
+ function Vanebenne(tomb,ertek){
      var i = 0;
      while(i < tomb.length && tomb[i] != ertek){
         i++;
@@ -167,89 +134,55 @@ function Tablageneralas() {
  }
 
 
-
 function PotHelyreGeneralas()
 {
-    var doboz = document.createElement("img");
-    doboz.src = "img/doboz.png";
-    kartyaBox.appendChild(doboz);
-    let i = 0;
-    // let rak = false;
-    
-    doboz.addEventListener("click", function(){
-        // if(!kepElhelyezve){
-        //     rak = true;
-        // }   
-        // if(i < 23 && rak)
-        // {
-        //     var kep = document.createElement("img");
-        //     kep.src = "img/"+(i+1)+".png";
-        //     kep.style.width = "150px";
-        //     kep.value = i+1; //kép indexét tárolom le
-        //     kep.addEventListener("click", function(){
-        //         if(!kepKivalasztva && kepElhelyezve){
-        //             kepIndex = this.value;
-        //             kepKivalasztva = true; 
-        //             this.style.visibility = "hidden";
-        //             kepElhelyezve = false;
-        //             kepe = true;
-        //         }
-        //     })
-        //     //kep.setAttribute("onclick" , "Kepkivalasztas(this)")
+
+    var img = document.createElement("img");
+    img.src = "img/doboz.png";
+    kartyaBox.appendChild(img); 
+   for (let i = 0; i < 23; i++) {
+    var kep = document.createElement("img");
+    kep.src = "img/"+(i+1)+".png";
+    kep.style.width = "150px";
+    kep.value = i+1; //kép indexét tárolom le
+    kepe = true;
+    kep.addEventListener("click", function(){
+        if(!kepKivalasztva && kepElhelyezve){
+            kepIndex = this.value;
+            kepKivalasztva = true; 
+            this.style.visibility = "hidden";
+            kepElhelyezve = false;
             
-            
-        //     pothely.appendChild(kep);
-            
-            
-        //    i++;
-        // }
-        if(i == lerakottkep && i < 23){
-            var kep = document.createElement("img");
-            kep.src = "img/"+(i+1)+".png";
-            kep.style.width = "150px";
-            kep.style.border = "3px solid black";
-            kep.value = i+1; //kép indexét tárolom le
-                if(!kepKivalasztva && kepElhelyezve){
-                    kepIndex = kep.value;
-                    kepKivalasztva = true; 
-                    kepElhelyezve = false;
-                    kepe = true;
-                    
-                }
-            //kep.setAttribute("onclick" , "Kepkivalasztas(this)")
-            kephely.appendChild(kep);
-           i++;
         }
     })
+    //kep.setAttribute("onclick" , "Kepkivalasztas(this)")
+    var pothely = document.getElementById("potHely");
+    pothely.appendChild(kep);
+    
+   }
 
-   
-let vn = 1;
-  for (let i = 0; i < 10; i++) {
+   for (let i = 0; i < 7; i++) {
     var kep = document.createElement("img");
-     kep.src = "img/var"+(vn)+".png";
-     kep.value = vn+23;
-     if(i ==3){
-        vn++;
-     }
-     if(i==6){
-        vn++;
-     }
-     if(i== 8){
-        vn++;
-     }
-     kep.style.width = "100px";
-      //kép indexét tárolom le
-     kep.addEventListener("click", function(){
-         if(!kepKivalasztva && kepElhelyezve){
-             kepIndex = this.value;
-             kepKivalasztva = true; 
-             this.style.visibility = "hidden";
-             kepElhelyezve = false;
-             kepe = false; 
-         }
-     })
-     varhely.appendChild(kep);
-    }
+    kep.src = "img/var"+(i+1)+".png";
+    kep.style.width = "150px";
+    kep.value = i+24; //kép indexét tárolom le
+    kepe = false;
+    kep.addEventListener("click", function(){
+        if(!kepKivalasztva && kepElhelyezve){
+            kepIndex = this.value;
+            kepKivalasztva = true; 
+            this.style.visibility = "hidden";
+            kepElhelyezve = false;
+           
+        }
+    })
+    //kep.setAttribute("onclick" , "Kepkivalasztas(this)")
+    var pothely = document.getElementById("potHely");
+    pothely.appendChild(kep);
+    
+   }
+
+
 }
 
 function Kepkivalasztas()

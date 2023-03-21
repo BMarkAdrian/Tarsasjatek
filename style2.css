@@ -69,29 +69,3 @@ img {
     height: 100%;
 }
 
-#potHely div{
-    display: inline-block;
-    
-}
-
-#kartyabox :hover{
-    border: 1px solid white;
-}
-
-/* .oszlopdiv :hover{
-    border: 1px solid white;
-} */
-
-.kepHely{
-    padding-left: 1200px; 
-    margin-top: 5px;
-    
-    /* border: 3px solid black; */
-    /* float:right; */
-}
-
-.varHely{
-     margin-top: 30px;  
-    border: 3px solid black;
-    position: absolute;
-}
